@@ -24,8 +24,10 @@ app.get('/', (req, res) => {
     res.send("server is running on'/'")
 })
 
-server.listen(ENV.PORT, () => {
-    console.log(`Server running on port ${ENV.PORT}`);
+const PORT = ENV.PORT || 5000;
+
+server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
     dbConnect();
 
 })
