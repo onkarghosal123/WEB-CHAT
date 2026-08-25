@@ -8,10 +8,10 @@ export function createWelcomeEmailTemplate(name, clientURL) {
     <title>Welcome to Messenger</title>
   </head>
   <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f5f5f5;">
-    <div style="background: linear-gradient(to right, #36D1DC, #5B86E5); padding: 30px; text-align: center; border-radius: 12px 12px 0 0;">
-      <img src="https://img.freepik.com/free-vector/hand-drawn-message-element-vector-cute-sticker_53876-118344.jpg?t=st=1741295028~exp=1741298628~hmac=0d076f885d7095f0b5bc8d34136cd6d64749455f8cb5f29a924281bafc11b96c&w=1480" alt="Messenger Logo" style="width: 80px; height: 80px; margin-bottom: 20px; border-radius: 50%; background-color: white; padding: 10px;">
-      <h1 style="color: white; margin: 0; font-size: 28px; font-weight: 500;">Welcome to Messenger!</h1>
-    </div>
+    <div style="background: linear-gradient(to right, #36D1DC, #5B86E5); padding: 30px; text-align: center; border-radius: 12px 12px 0 0;"> 
+  <div style="font-size: 70px; margin-bottom: 20px;">💬</div>
+  <h1 style="color: white; margin: 0; font-size: 28px; font-weight: 500;">Welcome to Messenger!</h1> 
+</div>
     <div style="background-color: #ffffff; padding: 35px; border-radius: 0 0 12px 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
       <p style="font-size: 18px; color: #5B86E5;"><strong>Hello ${name},</strong></p>
       <p>We're excited to have you join our messaging platform! Messenger connects you with friends, family, and colleagues in real-time, no matter where they are.</p>
@@ -49,10 +49,44 @@ export function createWelcomeEmailTemplate(name, clientURL) {
   `;
 }
 
-export function otpEmailTemplate(otp){
-  return`
-  <h2>Email Verification</h2>
-  <p>your otp is:</p>
-  <h1>${otp}</h1>
-  <p>Valid for only 5 minutes.</p>`
+export function otpEmailTemplate(otp) {
+  return `
+  <div style="background: linear-gradient(to right, #36D1DC, #5B86E5); padding: 30px; text-align: center; border-radius: 12px 12px 0 0;">
+  <div style="font-size: 55px; margin-bottom: 10px;">🔐</div>
+  <h2 style="color: white; margin: 0; font-size: 26px; font-weight: 600;">
+    Email Verification
+  </h2>
+</div>
+
+<div style="padding: 30px; text-align: center; background-color: #ffffff;">
+  <p style="color: #555; font-size: 16px; margin-bottom: 20px;">
+    Your OTP is:
+  </p>
+
+  <div style="
+    display: inline-block;
+    background-color: #f1f5ff;
+    border: 2px dashed #5B86E5;
+    border-radius: 10px;
+    padding: 15px 30px;
+    margin-bottom: 20px;
+  ">
+    <h1 style="
+      color: #5B86E5;
+      margin: 0;
+      font-size: 32px;
+      letter-spacing: 8px;
+    ">
+      ${otp}
+    </h1>
+  </div>
+
+  <p style="color: #777; font-size: 14px;">
+    Valid for only <strong>5 minutes.</strong>
+  </p>
+
+  <p style="color: #999; font-size: 12px; margin-top: 25px;">
+    Please do not share this OTP with anyone.
+  </p>
+</div>`
 }

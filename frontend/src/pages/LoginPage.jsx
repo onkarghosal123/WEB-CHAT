@@ -7,7 +7,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import toast from "react-hot-toast";
 
 function LoginPage() {
-
+  console.log("this is login page")
   const { isLoggingIn, setIsLoggingIn, login, sendOtp, isOtpsent, setIsOtpsent, otpSending } = useContext(AuthContext)
   const [formData, setFormData] = useState({ email: "", password: "" })
   const [otpInput, setOtpinput] = useState(null)
@@ -28,9 +28,9 @@ function LoginPage() {
 
 
   return (
-
-<div className="h-screen w-full flex items-center justify-center p-4 overflow-hidden">
-        <div className="w-full max-w-2xl">
+<>
+    <div className="h-screen w-full flex items-center justify-center p-4 overflow-hidden">
+      <div className="w-full max-w-2xl">
         {/* LOGIN CARD */}
         <div className="w-full bg-slate-900/95 border border-white/20 rounded-3xl shadow-2xl p-8">
 
@@ -173,6 +173,9 @@ function LoginPage() {
           <div className="mt-6 text-center">
             <Link
               to="/signup"
+              onClick={() => {
+                if (isOtpsent) setIsOtpsent(false)
+              }}
               className="text-sm text-blue-100 hover:text-white transition"
             >
               Don't have an account? Sign Up
@@ -182,7 +185,7 @@ function LoginPage() {
         </div>
       </div>
     </div>
-
+</>
   );
 }
 export default LoginPage;

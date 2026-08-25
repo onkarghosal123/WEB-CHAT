@@ -5,7 +5,7 @@ const aj = arcjet({
     rules: [
         fixedWindow({
             mode: "LIVE",
-            window: "1m",
+            window: "5m",
             max: 5
         })
     ]

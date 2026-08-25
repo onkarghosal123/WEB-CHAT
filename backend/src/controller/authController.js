@@ -35,7 +35,6 @@ export const signUp = async (req, res) => {
         })
         await newUser.save();
         if (newUser) {
-            setCookie(newUser._id, res)
             welcomeEmail(newUser.email, newUser.fullName)
         }
         res.status(201).json({
@@ -73,7 +72,7 @@ export const sendOtp = async (req, res) => {
         user.otpExpiry = new Date(Date.now() + 5 * 60 * 1000)
         await user.save()
         //send otp in email
-        // await otpEmail(user.email, generatedOtp)
+        await otpEmail(user.email, generatedOtp)
         res.status(201).json({
             email: user.email,
         })

@@ -1,15 +1,24 @@
 import { useContext, useState } from "react"
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext"
 import BorderAnimatedContainer from "../components/BorderAnimatedContainer"
 import { MessageCircleIcon, UserIcon, MailIcon, LockIcon, LoaderIcon } from "lucide-react"
 import { Link } from "react-router-dom"
 
 function SignupPage() {
+    const navigate = useNavigate();
     const { isSigningUp, setIsSigningUp, signup } = useContext(AuthContext)
     const [formData, setFormData] = useState({ fullName: "", email: "", password: "" })
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        signup(formData);
+        const success = await signup(formData);
+        console.log("success:", success)
+        if (success) {
+            navigate("/login");
+            console.log("navigated login")
+        }
+        console.log("success:", success)
+
     }
 
     return (
@@ -144,7 +153,7 @@ function SignupPage() {
                                         Connect and chat with your friends anytime
                                     </p>
 
-                        
+
 
                                 </div>
                             </div>

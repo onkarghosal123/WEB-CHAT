@@ -66,7 +66,7 @@ function AuthProvider({ children }) {
         } catch (error) {
             console.log("BACKEND URL:", import.meta.env.VITE_BACKEND_URL);
             console.log("error in sendotp authcontext", error)
-            toast.error(error.response.data.message)
+            toast.error(error.response?.data?.message || "Something Wrong !")
         } finally {
             setOtpSending(false)
         }
@@ -84,7 +84,7 @@ function AuthProvider({ children }) {
             console.log("after calling connectSocket in login func authuser:", authUser)
         } catch (error) {
             console.log(error)
-            toast.error(error.response.data.message)
+            toast.error(error.response?.data?.message || "Something Wrong !")
         } finally {
             setIsLoggingIn(false);
         }
@@ -93,10 +93,11 @@ function AuthProvider({ children }) {
         try {
             setIsSigningUp(true);
             const res = await axiosInstance.post('/auth/signup', data)
-            setAuthUser(res.data)
-            toast.success("Signed Up successfully")
+            toast.success("Signed Up successfully");
+            return true;
         } catch (error) {
-            toast.error(error.response.data.message)
+            toast.error(error.response?.data?.message || "Something Wrong !")
+            return false;
         } finally {
             setIsSigningUp(false);
         }
