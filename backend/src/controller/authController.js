@@ -35,7 +35,7 @@ export const signUp = async (req, res) => {
         })
         await newUser.save();
         if (newUser) {
-            welcomeEmail(newUser.email, newUser.fullName)
+            await welcomeEmail(newUser.email, newUser.fullName)
         }
         res.status(201).json({
             _id: newUser._id,

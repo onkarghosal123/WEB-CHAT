@@ -1,16 +1,38 @@
 import nodemailer from "nodemailer"
 import { ENV } from "./env.js"
 import { createWelcomeEmailTemplate, otpEmailTemplate } from "../controller/emailComponent.js"
-//create transporter
+// create transporter
+import dns from "dns";
+
+dns.setDefaultResultOrder("ipv4first");
+
 const transporter = nodemailer.createTransport({
-    service:"gmail",
-    auth:{
-        user:ENV.EMAIL_USER,
-        pass:ENV.EMAIL_PASS
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+        user: ENV.EMAIL_USER,
+        pass: ENV.EMAIL_PASS
     }
-})
+});
+
+//Your Render service is trying to connect to Gmail's SMTP server over IPv6, but its network route doesn't support that connection, so the connection never reaches Gmail.
+//Nodemailer uses smtp.gmail.com.
+// Node.js asks DNS for Gmail's IP addresses.
+// DNS returns both IPv4 and IPv6 addresses.
+// Node chooses one according to its DNS result order.
+// In your Render deployment, Node chose the IPv6 address:
+// const transporter = nodemailer.createTransport({
+//     service:"gmail",
+//     auth:{
+//         user:ENV.EMAIL_USER,
+//         pass:ENV.EMAIL_PASS
+//     }
+// })
+
 //sending welcome email
- export const welcomeEmail =async (email,name)=>{
+ 
+export const welcomeEmail =async (email,name)=>{
   const mailFormat = {
     from:"onkarghosal49@gmail.com",
     to:email,
