@@ -8,12 +8,15 @@ dns.setDefaultResultOrder("ipv4first");
 
 const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
+    port: 587,
+    secure: false,
     auth: {
         user: ENV.EMAIL_USER,
         pass: ENV.EMAIL_PASS
-    }
+    },
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 10000
 });
 
 //Your Render service is trying to connect to Gmail's SMTP server over IPv6, but its network route doesn't support that connection, so the connection never reaches Gmail.
@@ -31,36 +34,37 @@ const transporter = nodemailer.createTransport({
 // })
 
 //sending welcome email
- 
-export const welcomeEmail =async (email,name)=>{
-  const mailFormat = {
-    from:"onkarghosal49@gmail.com",
-    to:email,
-    subject:"Welcome to WEB-CHAT !",
-    html:createWelcomeEmailTemplate(name,ENV.FRONTEND_APP_URL)
+
+export const welcomeEmail = async (email, name) => {
+    const mailFormat = {
+        from: "onkarghosal49@gmail.com",
+        to: email,
+        subject: "Welcome to WEB-CHAT !",
+        html: createWelcomeEmailTemplate(name, ENV.FRONTEND_APP_URL)
+    }
+    try {
+        await transporter.sendMail(mailFormat);
+        console.log("Welcome email sent successfully.")
+
+    } catch (error) {
+        console.log("error in sending welcome mail", error)
+    }
 }
-try {
-    await transporter.sendMail(mailFormat);
-    console.log("Welcome email sent successfully.")
-    
-} catch (error) {
-    console.log("error in sending welcome mail",error)
-}}
 //sending otp email
-export const otpEmail = async (email,otp)=>{
-  const mailFormat = {
-    from:"onkarghosal49@gmail.com",
-    to:email,
-    subject:"OTP for Web-Chat verification.",
-    html:otpEmailTemplate(otp)
-}
-try {
-    await transporter.sendMail(mailFormat);
-    console.log("otp email sent successfully.")
-    
-} catch (error) {
-    console.log("error in sending Otp mail",error)
-}
+export const otpEmail = async (email, otp) => {
+    const mailFormat = {
+        from: "onkarghosal49@gmail.com",
+        to: email,
+        subject: "OTP for Web-Chat verification.",
+        html: otpEmailTemplate(otp)
+    }
+    try {
+        await transporter.sendMail(mailFormat);
+        console.log("otp email sent successfully.")
+
+    } catch (error) {
+        console.log("error in sending Otp mail", error)
+    }
 }
 
 
